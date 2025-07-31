@@ -1,130 +1,93 @@
-# Weather Forecasting Project
+# Cairo Weather Forecasting Project
 
 ## Project Title: Rainfall Classification and Temperature Forecasting in Cairo
 
 ## Team Members
 
-| Name        | Role                                       |
-|-------------|--------------------------------------------|
-| Esraa Omar  | Weather Forecasting Notebook               |
-| Shahd Tamer | README Documentation and GitHub Submission |
+| Name        | Role                                      |
+|-------------|-------------------------------------------|
+| Esraa Omar  | Developed Kaggle Notebook and ML Pipeline |
+| Shahd Tamer | README Documentation and GitHub Setup     |
 
 ---
 
-## Project Overview
+## Notebook Overview
 
-This project aims to build a robust weather prediction system using historical weather data from Cairo. It involves:
+This project uses historical weather data from Cairo to build two machine learning models:
 
-- Rainfall classification (rain/no rain)  
-- Temperature prediction using classical machine learning models
+1. **Rainfall Classification** – Predicts whether it will rain or not
+2. **Temperature Regression** – Predicts the daily mean temperature
 
-### Key Highlights:
-
-- Time-series feature engineering  
-- Handling imbalanced data with SMOTE  
-- Two-stage modeling:  
-  - Stage 1: Rain prediction (classification)  
-  - Stage 2: Temperature estimation (regression)  
-- Evaluation using accuracy, MAE, RMSE, and R²  
+The project was implemented and explored in a Kaggle Notebook:  
+[View it on Kaggle](https://www.kaggle.com/code/esraaammar/weather-forcasting)
 
 ---
 
-## Folder Structure
+## Data Summary
 
-```
-weather-forecasting/
-├── data/
-│   ├── raw/               # Original CSV data
-│   └── processed/         # Train/test datasets
-├── notebooks/
-│   ├── eda.ipynb          # Exploratory Data Analysis and Feature Engineering
-│   ├── classification.ipynb # Rain prediction using XGBoostClassifier
-│   └── regression.ipynb   # Temperature prediction using XGBoostRegressor
-├── models/
-│   ├── xgb_rain.pkl
-│   └── xgb_temp.pkl
-├── outputs/
-│   ├── plots/
-│   └── metrics/
-├── requirements.txt
-└── README.md
-```
+- **Source**: Cairo weather dataset from Kaggle
+- **Rows**: 5845 daily records
+- **Initial Features**: 35
+- **Target Variables**:
+  - `rain_flag` (binary classification)
+  - `temperature_2m_mean` (regression)
 
 ---
 
-## Data Preprocessing
+##  Feature Engineering
 
-- Parsed timestamps (datetime64[ns])  
-- Engineered features:
-  - Temporal: month, day, season, dayofyear  
-  - Lag: rain_prev_1d  
-  - Rolling: avg_temp_past_7d  
-  - Directional encoding: wind_dir_sin, wind_dir_cos  
-- Removed redundant or highly correlated columns  
-- Cleaned missing and zero-variance features  
-- Targets:
-  - `rain_flag` (classification)  
-  - `temperature_2m_mean` (°C) (regression)  
+- Parsed timestamps: month, day, season, dayofyear
+- Added lag and rolling features:
+  - `rain_prev_1d`, `avg_temp_past_7d`
+- Wind direction encoded using sine/cosine
+- Removed redundant or low-value features
+- Created `rain_flag` binary target from rainfall column
 
 ---
 
-## Classical Model Development
+##  Models Used
 
-### Rainfall Classification
+### Stage 1: Rainfall Classification
+- **Model**: `XGBoostClassifier`
+- **Technique**: SMOTE to balance classes
+- **Metric**: Accuracy (~93%)
 
-- **Model**: XGBoostClassifier  
-- **Features**: Wind speed, radiation, humidity, cloud cover, etc.  
-- **Imbalance Handling**: SMOTE  
-- **Evaluation**: Classification report, accuracy, feature importance  
-
-### Temperature Regression
-
-- **Model**: XGBoostRegressor  
-- **Features**: Includes predicted `rain_flag` from classification stage  
-- **Evaluation**: MAE, RMSE, R²  
-- **Visualization**: Actual vs Predicted temperature plot  
-
----
-
-## Results Summary
-
-| Task                    | Model              | Accuracy / MAE | RMSE / R²           |
-|-------------------------|--------------------|----------------|---------------------|
-| Rainfall Classification | XGBoostClassifier  | Accuracy: ~93% | -                   |
-| Temperature Prediction  | XGBoostRegressor   | MAE: ~1.5°C    | RMSE: ~2.3°C / R²: ~0.92 |
+### Stage 2: Temperature Regression
+- **Model**: `XGBoostRegressor`
+- **Input**: Weather features + predicted `rain_flag`
+- **Metrics**:
+  - MAE ≈ 1.5°C
+  - RMSE ≈ 2.3°C
+  - R² ≈ 0.92
 
 ---
 
-## Required Libraries
+##  Files in This Repo
 
-- pandas  
-- numpy  
-- seaborn  
-- matplotlib  
-- scikit-learn  
-- xgboost  
-- imbalanced-learn  
+- `Cairo_Weather_Forecasting.ipynb`: Main notebook exported from Kaggle
+- `README.md`: Project documentation
+- `requirements.txt`: Python packages list 
 
-To install all dependencies:
+---
+
+## How to Use
+
+1. Clone the repo or download the notebook
+2. Open `Cairo_Weather_Forecasting.ipynb` in Jupyter or Google Colab
+3. Run the notebook to view results and experiment
+
+---
+
+## Future Enhancements
+
+- Try deep learning models (LSTM) for time-series prediction
+- Add data from other cities
+- Deploy the model via Streamlit or Flask
+- Automate using Airflow or Prefect
+
+---
+
+## 🛠️ Requirements
 
 ```bash
-pip install -r requirements.txt
-```
-
----
-
-## How to Run
-
-- Run `notebooks/eda.ipynb` for data preprocessing  
-- Run `notebooks/classification.ipynb` to train the rainfall classifier  
-- Run `notebooks/regression.ipynb` to train the temperature regressor  
-- Visualizations and outputs will be stored in the `outputs/` folder  
-
----
-
-## Future Work
-
-- Explore deep learning models (e.g., LSTM) for temporal forecasting  
-- Expand with external features (e.g., pressure, pollution)  
-- Evaluate with data from multiple cities  
-- Automate the pipeline using workflow tools  
+pip install pandas numpy seaborn matplotlib scikit-learn xgboost imbalanced-learn
