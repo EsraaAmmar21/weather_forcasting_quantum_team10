@@ -6,8 +6,8 @@
 
 | Name        | Role                                      |
 |-------------|-------------------------------------------|
-| Esraa Omar  | Developed Kaggle Notebook and ML Pipeline |
-| Shahd Tamer | README Documentation and GitHub Setup     |
+| Esraa Ammar | Developed Kaggle Notebook and ML Pipeline |
+| Shahd Tamer | GitHub Setup and Project Presentation     |
 
 ---
 
@@ -64,8 +64,10 @@ The project was implemented and explored in a Kaggle Notebook:
 
 ##  Files in This Repo
 
-- `Cairo_Weather_Forecasting.ipynb`: Main notebook exported from Kaggle
+- `final-weather-forcasting.ipynb`: Main notebook exported from Kaggle
+- `weather-forcasting(1).ipynb`: Draft for our first presentation
 - `README.md`: Project documentation
+- `Presentation.pptx`: Project Presentation
 - `requirements.txt`: Python packages list 
 
 ---
@@ -73,7 +75,7 @@ The project was implemented and explored in a Kaggle Notebook:
 ## How to Use
 
 1. Clone the repo or download the notebook
-2. Open `Cairo_Weather_Forecasting.ipynb` in Jupyter or Google Colab
+2. Open `final-weather-forcasting.ipynb` in Jupyter or Google Colab
 3. Run the notebook to view results and experiment
 
 ---
@@ -87,7 +89,7 @@ The project was implemented and explored in a Kaggle Notebook:
 
 ---
 
-## 🛠️ Requirements
+## Requirements
 
 ```bash
 pip install pandas numpy seaborn matplotlib scikit-learn xgboost imbalanced-learn
